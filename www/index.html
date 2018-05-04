@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xxx娱乐</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/angular.min.js"></script>
+    <script src="../node_modules/angular-socialshare/dist/angular-socialshare.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        var app=angular.module('app',['720kb.socialshare']);
+        app.controller('appCtrl',function($scope,$http){
+
+            $http({
+                url:'http://f.apiplus.cn/bj11x5.json&callback=JSON_CALLBACK',
+                method:'jsonp',
+                responseType: "json"
+            }).success(function(res){
+                console.log(res);
+                $scope.historydata=res.data.slice(0,3);
+                $scope.currentData=res.data[0];
+
+                var currTime=new Date();
+                var endTime=new Date(Date.parse($scope.currentData.opentime.replace(/-/g, "/")));
+
+                if(currTime>endTime){
+                    $scope.hours='00';
+                    $scope.minutes='18';
+                    $scope.seconds='58';
+                }else{
+                    var plus=endTime.getTime()-currTime.getTime();
+
+//计算出相差天数
+                    var days=Math.floor(plus/(24*3600*1000));
+//计算出小时数
+                    var leave1=plus%(24*3600*1000)    //计算天数后剩余的毫秒数
+                    var hours=Math.floor(leave1/(3600*1000));
+//计算相差分钟数
+                    var leave2=leave1%(3600*1000)        //计算小时数后剩余的毫秒数
+                    var minutes=Math.floor(leave2/(60*1000));
+//计算相差秒数
+                    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+                    var seconds=Math.round(leave3/1000);
+
+                    $scope.hours=(days*24+hours);
+                    if($scope.hours<10){
+                        $scope.hours='0'+$scope.hours;
+                    }
+                    $scope.minutes=minutes;
+                    if($scope.minutes<10){
+                        $scope.minutes='0'+$scope.minutes;
+                    }
+                    $scope.seconds=seconds;
+                    if($scope.seconds<10){
+                        $scope.seconds='0'+$scope.seconds;
+                    }
+                }
+                $scope.opencode=$scope.currentData.opencode.split(",");
+            });
+        });
+        app.filter('removeComma',function(){
+            return function (input){
+                return input.replace(/,/g, " ")
+            }
+        });
+    </script>
+</head>
+<body ng-controller="appCtrl">
+<!--top message-->
+<div class="top-message-main">
+    <div class="message-list">
+        <div class="message-gong-gao">公共: 欢迎来到xxx娱乐 , 祝您游戏愉快 ! 赚大钱~</div>
+        <div class="top-menu-main on-line-ke-fu">
+            <div class="icon icon-message"></div>
+            在线客服
+        </div>
+        <div class="top-menu-main">
+            <div class="icon icon-help"></div>
+            在线帮助
+        </div>
+        <div class="top-menu-main">
+            <div class="icon icon-computer"></div>
+            客户端下载
+        </div>
+    </div>
+</div>
+<!--header-->
+<div class="header">
+    <div >
+        <div class="logo">
+            <img src="img/logo.png" alt="">
+        </div>
+        <div class="menu flex-1">
+            <span>我的账户</span>
+            <span>银行充提</span>
+            <span>投注记录</span>
+            <span>账户报表</span>
+            <span>代理管理</span>
+            <span>优惠活动</span>
+            <span style="border: 0">企业文化</span>
+        </div>
+    </div>
+</div>
+<!--content-->
+<div class="content flex-row">
+    <div class="flex-2 first">
+        <div>
+            第<span style="color: red">{{currentData.expect}}</span>期 &nbsp;&nbsp;离截止时间
+        </div>
+        <div style="font-size: 40px;padding: 15px 0;font-weight: bold">
+            {{hours}}:{{minutes}}:{{seconds}}
+        </div>
+    </div>
+    <div class="flex-3 second" style="">
+        <div>
+            11选5&nbsp;&nbsp;&nbsp;&nbsp; 第<span style="color: red">{{currentData.expect}}</span>期号码
+        </div>
+        <div class="flex-row" style="padding: 5px 0;">
+            <div class="flex-1"></div>
+            <div class=" circle" ng-repeat="it in opencode">
+                {{it}}
+            </div>
+            <div class="flex-1"></div>
+        </div>
+    </div>
+    <div class="flex-2 flex-row third">
+        <div class="flex-1"></div>
+        <div class="history">
+            <div class="flex-row history-title">
+                <div class="flex-1">期次</div>
+                <div class="flex-1">开奖号码</div>
+            </div>
+            <div class="flex-row history-line" ng-repeat="item in historydata">
+                <div class="flex-1">{{item.opentimestamp}}</div>
+                <div class="flex-1">{{item.opencode|removeComma}}</div>
+            </div>
+        </div>
+        <div class="flex-1"></div>
+    </div>
+</div>
+<div>
+  <a href="#"
+socialshare
+socialshare-provider="facebook"
+socialshare-text="720kb AngularJS Socialshare" 
+socialshare-hashtags="angularjs, angular-socialshare"
+socialshare-url="http://baidu.com">
+Share me
+</a>  
+</div>
+</body>
+</html>

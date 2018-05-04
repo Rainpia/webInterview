@@ -1,0 +1,162 @@
+@import "bourbon/bourbon";
+
+.flex-row {
+  @include display(flex);
+  @include flex-direction(row);
+}
+.flex-column {
+  @include display(flex);
+  @include flex-direction(column);
+}
+@for $i from 1 to 10 {
+  .flex-#{$i} {
+    @include flex($i);
+  }
+}
+.text-overflow {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+body{
+  padding: 0;
+  margin: 0;
+  background-color: #e4e4e4;
+}
+.icon{
+  $iconSize:12px;
+  width: $iconSize;
+  height: $iconSize;
+  min-height: $iconSize;
+  min-width: $iconSize;
+  max-width: $iconSize;
+  max-height: $iconSize;
+  margin: 0 1px;
+  &.icon-computer{
+    float: left;
+    background: url('../img/computer.png') no-repeat left ;
+    background-size: $iconSize $iconSize;
+  }
+  &.icon-help{
+    float: left;
+    background: url('../img/help.png') no-repeat left ;
+    background-size: $iconSize/2 $iconSize;
+  }
+  &.icon-message{
+    margin-top: -1px;
+    padding: 1px 0;
+    float: left;
+    background: url('../img/msg.png') no-repeat left ;
+    background-size: 10px 10px;
+  }
+}
+div.top-message-main{
+  width: 100%;
+  background: #707070;
+  color: white;
+  height: 12px;
+  padding: 4px 0px;
+  line-height: 12px;
+  font-size: 8px;
+  div.message-list{
+    width: 80%;
+    margin: 0 auto;
+    min-width: 700px;
+    div.message-gong-gao{
+      float: left;
+    }
+    div.top-menu-main{
+      float: right;
+      margin: 0 2px;
+      &.on-line-ke-fu{
+        height: 12px;
+        background: red;
+        border-radius: 10px;
+        padding: 0px 6px;
+      }
+    }
+  }
+}
+div.header{
+  background-color: #20A3AE;
+  color: white;
+  height: 60px;
+  font-size: 12px;
+  opacity: 0.6;
+  >div{
+    width: 80%;
+    min-width: 700px;
+    margin: 0 auto;
+    height: 60px;
+    div.logo{
+      float: left;
+      height: 60px;
+      padding: 5px 0;
+      box-sizing: border-box;
+      img{
+        height: 50px;
+      }
+    }
+    div.menu{
+      float: right;
+      cursor: pointer;
+      line-height: 60px;
+      >span{
+        border-right: 1px solid white;
+        padding:0 10px;
+      }
+
+    }
+  }
+}
+div.content{
+  width: 80%;
+  margin: 0 auto;
+  min-width: 700px;
+  background-color: white;
+  padding: 20px 0;
+  font-size: 12px;
+  text-align: center;
+  div.first {
+
+  }
+  div.second {
+    border-left: 1px solid #e4e4e4;border-right: 1px solid #e4e4e4;
+    div.circle{
+      width: 45px;height: 45px;border-radius: 45px;line-height: 45px;
+      border:1px solid #e4e4e4;
+      margin: 10px 5px;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 25px;
+      //FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b8c4cb,endColorStr=red); /*IE 6 7 8*/
+
+      background: -ms-linear-gradient(top, #fff,  #0000ff);        /* IE 10 */
+
+      background:-moz-linear-gradient(top,#b8c4cb,#f6f6f8);/*火狐*/
+
+      background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#b8c4cb), to(#f6f6f8));/*谷歌*/
+
+      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#dcdcdc));      /* Safari 4-5, Chrome 1-9*/
+
+      background: -webkit-linear-gradient(top, #fff, #dcdcdc);   /*Safari5.1 Chrome 10+*/
+
+      background: -o-linear-gradient(top, #fff, #dcdcdc);  /*Opera 11.10+*/
+    }
+  }
+  div.third {
+    div.history{
+      width: 180px;
+      div.history-title{
+        padding: 5px 0;
+      }
+      div.history-line{
+        border: 1px solid #e4e4e4;
+        border-radius: 10px;
+        margin: 3px 0;
+      }
+    }
+  }
+}
